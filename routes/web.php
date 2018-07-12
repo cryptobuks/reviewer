@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', 'WelcomeController@show');
+Route::get('/', 'Pages\PagesController@home');
 
 Route::get('/home', 'HomeController@show');

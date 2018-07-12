@@ -54,25 +54,22 @@ class SparkServiceProvider extends ServiceProvider
 
         Spark::chargeTeamsPerMember();
 
-        Spark::freeTeamPlan('Trial')
-            ->maxTeams(1)
-            ->maxTeamMembers(25)
+        Spark::noAdditionalTeams();
+
+        Spark::freeTeamPlan('Basic')
+            ->maxTeamMembers(20)
             ->trialDays(365)
             ->features([
-                'Supports 5 members.',
-                'Try it free for a year.',
-                'Third'
+                'Supports 20 team members.',
+                'Try it free for a year.'
             ]);
 
 
-        Spark::teamPlan('Basic', 'monthly-basic-plan-1')
+        Spark::teamPlan('Premium', 'monthly-premium-plan-1')
             ->price(10)
             ->maxTeamMembers(100)
             ->features([
-                'Support 100 members',
-                'Second',
-                'Third'
-            ])
-            ->maxTeams(1);
+                'Supports 100 team members.'
+            ]);
     }
 }
