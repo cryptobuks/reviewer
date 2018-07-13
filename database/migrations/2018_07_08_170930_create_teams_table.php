@@ -33,6 +33,7 @@ class CreateTeamsTable extends Migration
             $table->text('extra_billing_information')->nullable();
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

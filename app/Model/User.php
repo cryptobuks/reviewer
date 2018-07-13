@@ -2,11 +2,13 @@
 
 namespace App\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Spark\CanJoinTeams;
 use Laravel\Spark\User as SparkUser;
 
 class User extends SparkUser
 {
+    use SoftDeletes;
     use CanJoinTeams;
 
     /**
@@ -50,4 +52,9 @@ class User extends SparkUser
         'trial_ends_at' => 'datetime',
         'uses_two_factor_auth' => 'boolean',
     ];
+
+    public function kudos()
+    {
+        return $this->hasMany(Kudos::class);
+    }
 }

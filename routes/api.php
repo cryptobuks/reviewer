@@ -11,8 +11,8 @@
 |
 */
 
-Route::group([
-    'middleware' => 'auth:api'
-], function () {
-    //
+Route::group(['namespace' => 'Api\V1' ,'prefix' => 'v1'], function () {
+    Route::get('/kudos', 'KudosController@index');
+    Route::get('/kudos/{kudos}', 'KudosController@show');
+    Route::post('/kudos', 'KudosController@store');
 });
