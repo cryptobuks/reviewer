@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Model\Kudos;
-use Illuminate\Http\Request;
+use App\Http\Requests\Api\V1\KudosRequest;
 use App\Http\Controllers\Api\ApiController;
-use Validator;
+
 
 /**
  * Class KudosController
@@ -24,39 +24,50 @@ class KudosController extends ApiController
     }
 
     /**
-     * @param Request $request
+     * @param KudosRequest $request
      * @return mixed|\Symfony\Component\HttpFoundation\ParameterBag
      */
-    public function store(Request $request)
+    public function store(KudosRequest $request)
     {
-
-        //TODO: Need to add validation rule so that recognition_user_id can not be same as auth user.
-        //TODO: Need to add validation so the recognition_user_id must be on same team.
-        $validator = Validator::make($request->all(), [
-            'recognition_user_id' => 'required|integer',
-            'message' => 'required|string'
-        ]);
-
         //Throwing a bad request if
-        if ($validator->fails()) {
-            return $this->badRequest($validator->errors());
+        if ($request->getValidator()->fails()) {
+            return $this->badRequest($request->getValidator()->errors());
         }
 
-        //Get the user specific info I need.
-        $user = auth()->user();
-        $userId = $user->id;
-        $teamId = $user->currentTeam->id;
+        //TODO: create kudos with validator data.
 
-        //Create the Kudos.
-        $kudos = new Kudos();
-        $kudos->user_id = $userId;
-        $kudos->team_id = $teamId;
-        $kudos->recognition_user_id = $request->recognition_user_id;
-        $kudos->message = $request->message;
-        //TODO: Do I need to confirm that I saved here or am I safe?
-        $kudos->save();
 
-        return $this->created($kudos);
+//        //TODO: Need to add validation rule so that recognition_user_id can not be same as auth user.
+//        //TODO: Need to add validation so the recognition_user_id must be on same team.
+//        $validator = Validator::make($request->all(), [
+//            'recognitionUserId' => 'required|integer',
+//            'message' => 'required|string'
+//        ]);
+//
+//        //Throwing a bad request if
+//        if ($validator->fails()) {
+//            return $this->badRequest($validator->errors());
+//        }
+//
+//        //Preparing the data.
+//        $user = auth()->user();
+//        $userId = $user->id;
+//        $teamId = $user->currentTeam->id;
+//        $recognitionUserId = $request->recognitionUserId;
+//        $message = $request->message;
+//
+//        try {
+//            $kudos = new Kudos();
+//            $kudos->setUserId($userId)
+//                ->setTeamId($teamId)
+//                ->setRecognitionUserId($recognitionUserId)
+//                ->setMessage($message)
+//                ->save();
+//            return $this->created($kudos);
+//        } catch (\Exception $exception) {
+//          return $this->error($exception->getMessage());
+//        }
+
     }
 
 

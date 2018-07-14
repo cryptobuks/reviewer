@@ -16,3 +16,4 @@ Route::group(['namespace' => 'Api\V1' ,'prefix' => 'v1'], function () {
     Route::get('/kudos/{kudos}', 'KudosController@show');
     Route::post('/kudos', 'KudosController@store');
 });
+
